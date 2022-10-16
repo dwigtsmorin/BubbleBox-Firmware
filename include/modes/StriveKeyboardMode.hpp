@@ -1,5 +1,5 @@
 #ifndef _MODES_STRIVEKEYBOARDMODE_HPP
-#define _MODES_STRIVETKEYBOARDMODE_HPP
+#define _MODES_STRIVEKEYBOARDMODE_HPP
 
 #include "core/KeyboardMode.hpp"
 #include "core/socd.hpp"

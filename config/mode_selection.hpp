@@ -3,6 +3,7 @@
 
 #include "core/state.hpp"
 #include "modes/DefaultKeyboardMode.hpp"
+#include "modes/StriveKeyboardMode.hpp"
 #include "modes/FgcMode.hpp"
 #include "modes/Melee20Button.hpp"
 #include "modes/ProjectM.hpp"
@@ -47,6 +48,8 @@ void select_mode(CommunicationBackend *backend) {
     } else if (inputs.mod_y && !inputs.mod_x && inputs.start) {
         if (inputs.l) {
             set_mode(backend, new DefaultKeyboardMode(socd::SOCD_2IP));
+        } else if (inputs.right) {
+            set_mode(backend, new StriveKeyboardMode(socd::SOCD_2IP));
         }
     }
 }
