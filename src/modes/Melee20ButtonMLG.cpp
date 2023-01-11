@@ -1,15 +1,15 @@
-#include "modes/Melee20Button.hpp"
+#include "modes/Melee20ButtonMLG.hpp"
 
 #define ANALOG_STICK_MIN 48
 #define ANALOG_STICK_NEUTRAL 128
 #define ANALOG_STICK_MAX 208
 
-Melee20Button::Melee20Button(socd::SocdType socd_type, Melee20ButtonOptions options)
+Melee20ButtonMLG::Melee20ButtonMLG(socd::SocdType socd_type, Melee20ButtonMLGOptions options)
     : ControllerMode(socd_type) {
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
         socd::SocdPair{&InputState::left,    &InputState::right  },
-        socd::SocdPair{ &InputState::down,   &InputState::up     },
+        socd::SocdPair{ &InputState::down,   &InputState::up2    },
         socd::SocdPair{ &InputState::c_left, &InputState::c_right},
         socd::SocdPair{ &InputState::c_down, &InputState::c_up   },
     };
@@ -18,12 +18,12 @@ Melee20Button::Melee20Button(socd::SocdType socd_type, Melee20ButtonOptions opti
     _horizontal_socd = false;
 }
 
-void Melee20Button::HandleSocd(InputState &inputs) {
+void Melee20ButtonMLG::HandleSocd(InputState &inputs) {
     _horizontal_socd = inputs.left && inputs.right;
     InputMode::HandleSocd(inputs);
 }
 
-void Melee20Button::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
+void Melee20ButtonMLG::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.a = inputs.a;
     outputs.b = inputs.b;
     outputs.x = inputs.x;
@@ -37,8 +37,8 @@ void Melee20Button::UpdateDigitalOutputs(InputState &inputs, OutputState &output
     outputs.triggerRDigital = inputs.r;
     outputs.start = inputs.start;
 
-    // Activate D-Pad layer by holding Mod X + Mod Y or Nunchuk C button.
-    if (inputs.nunchuk_c || inputs.up2) {
+    // Activate D-Pad layer by holding Mod X + Mod Y or Nunchuk C button. And now the Up button
+    if (inputs.nunchuk_c || inputs.up) {
         outputs.dpadUp = inputs.c_up;
         outputs.dpadDown = inputs.c_down;
         outputs.dpadLeft = inputs.c_left;
@@ -51,13 +51,13 @@ void Melee20Button::UpdateDigitalOutputs(InputState &inputs, OutputState &output
         outputs.dpadRight = true;
 }
 
-void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
+void Melee20ButtonMLG::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
     // Coordinate calculations to make modifier handling simpler.
     UpdateDirections(
         inputs.left,
         inputs.right,
         inputs.down,
-        inputs.up,
+        inputs.up2,
         inputs.c_left,
         inputs.c_right,
         inputs.c_down,
@@ -279,7 +279,7 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
     }
 
     // Shut off C-stick when using D-Pad layer.
-    if (inputs.nunchuk_c || inputs.up2) {
+    if (inputs.nunchuk_c || inputs.up) {
         outputs.rightStickX = 128;
         outputs.rightStickY = 128;
     }
