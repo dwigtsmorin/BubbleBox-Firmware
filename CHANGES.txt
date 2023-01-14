@@ -1,2 +1,0 @@
-This BubbleBox version of the Haybox firmware only adds a keyboard mode to play Guilty Gear Strive on PC.
-It is tied to the button combo Mod Y + Right + Start
