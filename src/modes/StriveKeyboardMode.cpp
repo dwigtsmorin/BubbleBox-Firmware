@@ -15,8 +15,9 @@ void StriveKeyboardMode::UpdateKeys(InputState &inputs) {
     Press(HID_KEY_A, inputs.left);          // A        = Left              = Left
     Press(HID_KEY_S, inputs.down);          // S        = Down              = Down
     Press(HID_KEY_D, inputs.right);         // D        = Right             = Right
-    Press(HID_KEY_W, inputs.mod_x);         // W        = Up                = Up
-    Press(HID_KEY_SPACE, inputs.mod_y);     // Space    = No Menu           = Position Reset  
+    Press(HID_KEY_W, inputs.up2);           // W        = Up                = Up
+    Press(HID_KEY_SPACE, inputs.mod_x);     // Space    = No Menu           = Position Reset
+    Press(HID_KEY_F, inputs.mod_y);         // F        = ...               = ...  
     Press(HID_KEY_Z, inputs.select);        // Z        = ...               = ...
     Press(HID_KEY_X, inputs.home);          // X        = ...               = ...
     Press(HID_KEY_ENTER, inputs.start);     // Enter    = Enter             = Pause
