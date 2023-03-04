@@ -8,7 +8,7 @@ FgcMode::FgcMode(socd::SocdType socd_type) : ControllerMode(socd_type) {
 }
 
 void FgcMode::HandleSocd(InputState &inputs) {
-    if (inputs.down && (inputs.mod_x || inputs.c_up)) {
+    if (inputs.down && (inputs.mod_x || inputs.up2 || inputs.c_up)) {
         inputs.down = false;
     }
     InputMode::HandleSocd(inputs);
@@ -19,28 +19,28 @@ void FgcMode::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.dpadLeft = inputs.left;
     outputs.dpadRight = inputs.right;
     outputs.dpadDown = inputs.down;
-    outputs.dpadUp = inputs.mod_x || inputs.up2;             // Mod X and Up2-W are mapped to Dpad Up
+    outputs.dpadUp = inputs.mod_x || inputs.up2 || inputs.c_up; // Mod X and Up2-W are mapped to Dpad Up
 
     // L Key, Mod Y, and Right Thumb keys
-    outputs.leftStickClick = inputs.l || inputs.c_left;      // L now mapped to L3
-    outputs.rightStickClick = inputs.a;                      // C Left now mapped to R3
+    outputs.leftStickClick = inputs.l || inputs.c_left;         // L now mapped to L3
+    outputs.rightStickClick = inputs.a;                         // C Left now mapped to R3
 
     // Menu keys
     outputs.start = inputs.start;
-    outputs.select = inputs.select;                          // Select now mapped to Select instead of the button it was before
-    outputs.home = inputs.home;                              // Home now mapped to Home instead of the button it was before
+    outputs.select = inputs.select;                             // Select now mapped to Select instead of the button it was before
+    outputs.home = inputs.home;                                 // Home now mapped to Home instead of the button it was before
 
     // Right hand bottom row
     outputs.a = inputs.b;
     outputs.b = inputs.x;
-    outputs.triggerLDigital = inputs.z;                      // Swapped Trigger from Right to Left
-    outputs.triggerRDigital = inputs.up;                     // Swapped Trigger from Left to Right
+    outputs.triggerLDigital = inputs.z;                         // Swapped Trigger from Right to Left
+    outputs.triggerRDigital = inputs.up;                        // Swapped Trigger from Left to Right
 
     // Right hand top row
     outputs.x = inputs.r;
     outputs.y = inputs.y;
-    outputs.buttonL = inputs.lightshield;                    // Swapped Bumper from Right to Left
-    outputs.buttonR = inputs.midshield;                      // Swapped Bumper from Left to Right
+    outputs.buttonL = inputs.lightshield;                       // Swapped Bumper from Right to Left
+    outputs.buttonR = inputs.midshield;                         // Swapped Bumper from Left to Right
 }
 
 void FgcMode::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
